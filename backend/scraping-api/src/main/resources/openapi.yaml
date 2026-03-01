@@ -1,138 +1,155 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: API de Gestion des Chiens
-  description: |
-    API REST permettant la gestion des chiens dans le système.
-    Cette API permet de créer, lire, mettre à jour et supprimer des informations sur les chiens.
+  title: Scraping API
+  description: API de scraping pour récupérer des infos de films (Allociné/IMDb).
   version: 1.0.0
-  contact:
-    name: Support API
-    email: support@example.com
 
 servers:
   - url: http://localhost:8080
-    description: Serveur de développement local
-
-tags:
-  - name: dogs
-    description: Opérations liées à la gestion des chiens
+    description: Serveur local
 
 paths:
-  /dogs:
+  # --- 1. ENDPOINT SYNCHRONE (DIRECT) ---
+  /api/scraping/movie:
     get:
-      tags:
-        - dogs
-      summary: Récupère tous les chiens
-      description: Retourne la liste complète des chiens enregistrés dans le système
-      operationId: getAllDogs
+      summary: Recherche et scrape un film (Synchrone)
+      description: |
+        Cherche un film par son titre. 
+        Vérifie d'abord le cache (base de données), sinon lance le scraping.
+      parameters:
+        - name: title
+          in: query
+          required: true
+          description: 'Le titre du film à chercher (ex: "Avatar")'
+          schema:
+            type: string
+            example: "Inception"
       responses:
         '200':
-          description: Liste des chiens récupérée avec succès
+          description: Film trouvé
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DogDto'
+                $ref: '#/components/schemas/MovieResult'
+        '404':
+          description: Film introuvable
         '500':
-          description: Erreur serveur interne
+          description: Erreur serveur
 
+  # --- 2. ENDPOINTS ASYNCHRONES (TACHES) ---
+  /api/scraping/tasks:
     post:
-      tags:
-        - dogs
-      summary: Crée un nouveau chien
-      description: Ajoute un nouveau chien dans le système
-      operationId: createDog
+      summary: Lancer une tâche en arrière-plan
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DogDto'
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Titanic"
       responses:
-        '201':
-          description: Chien créé avec succès
+        '202':
+          description: Tâche acceptée
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DogDto'
-        '400':
-          description: Données invalides
-        '500':
-          description: Erreur serveur interne
+                $ref: '#/components/schemas/ScrapingTask'
 
-  /dogs/{id}:
+  /api/scraping/tasks/{id}:
     get:
-      tags:
-        - dogs
-      summary: Récupère un chien par son ID
-      description: Retourne les détails d'un chien spécifique
-      operationId: getDogById
+      summary: Vérifier le statut d'une tâche
       parameters:
         - name: id
           in: path
-          description: ID du chien à récupérer
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+          description: ID de la tâche reçu lors du POST
       responses:
         '200':
-          description: Chien trouvé
+          description: Statut actuel de la tâche
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DogDto'
-        '404':
-          description: Chien non trouvé
-        '500':
-          description: Erreur serveur interne
-
-    delete:
-      tags:
-        - dogs
-      summary: Supprime un chien
-      description: Supprime un chien du système par son ID
-      operationId: deleteDog
-      parameters:
-        - name: id
-          in: path
-          description: ID du chien à supprimer
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Chien supprimé avec succès
-          content:
-            application/json:
-              schema:
-                type: boolean
-        '404':
-          description: Chien non trouvé
-        '500':
-          description: Erreur serveur interne
+                $ref: '#/components/schemas/ScrapingTask'
 
 components:
   schemas:
-    DogDto:
+    # L'objet FILM (DTO de retour du scraping)
+    MovieResult:
       type: object
-      description: Représentation d'un chien dans le système
+      required:
+        - titre
+      properties:
+        titre:
+          type: string
+          example: "Avatar : La Voie de l'eau"
+        anneeRealisation:
+          type: integer
+          example: 2022
+        ageMinimum:
+          type: integer
+          example: 12
+        louable:
+          type: boolean
+          example: true
+        genres:
+          type: array
+          description: "Liste des genres associés au film"
+          items:
+            $ref: '#/components/schemas/GenreResult'
+        artistes:
+          type: array
+          description: "Liste des acteurs et réalisateurs"
+          items:
+            $ref: '#/components/schemas/ArtisteResult'
+        posterUrl:
+          type: string
+          description: "URL de l'affiche récupérée"
+          example: "https://fr.web.img...jpg"
+        sourceUrl:
+          type: string
+          example: "https://www.allocine.fr/film/..."
+
+    # L'objet GENRE
+    GenreResult:
+      type: object
+      properties:
+        nom:
+          type: string
+          example: "Science-Fiction"
+
+    # L'objet ARTISTE
+    ArtisteResult:
+      type: object
+      properties:
+        nom:
+          type: string
+          example: "Cameron"
+        prenom:
+          type: string
+          example: "James"
+        role:
+          type: string
+          example: "Réalisateur"
+
+    # L'objet TÂCHE (Pour le suivi asynchrone)
+    ScrapingTask:
+      type: object
       properties:
         id:
-          type: integer
-          format: int64
-          description: Identifiant unique du chien
-          example: 1
-        name:
           type: string
-          description: Nom du chien
-          example: "Rex"
-        race:
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        status:
           type: string
-          description: Race du chien
-          example: "Berger Allemand"
-      required:
-        - name
-        - race 
+          enum:
+            - PENDING
+            - RUNNING
+            - COMPLETED
+            - FAILED
+          example: "COMPLETED"
+        result:
+          $ref: '#/components/schemas/MovieResult'
