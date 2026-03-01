@@ -8,7 +8,7 @@ import com.services.impl.DogServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dogs")
+@RequestMapping("/api/scraping")
 public class DogController {
 	
 	private final DogServiceImpl dogService;

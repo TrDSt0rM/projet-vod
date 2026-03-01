@@ -1,9 +1,8 @@
 package com.mappers;
 
-import com.dtos.DogDto;
-import com.entities.Dog;
+import com.dtos.MovieDto;
+import com.entities.ScrapingTask;
 import org.springframework.stereotype.Component;
-import java.util.Objects;
 
 /**
  * Mapper responsable de la conversion entre les entités Dog et les DTOs DogDto.
@@ -21,19 +20,19 @@ public class DogMapper {
      * Convertit une entité Dog en DTO DogDto
      * Cette méthode est utilisée pour exposer les données aux clients de l'API
      * 
-     * @param dog l'entité à convertir
+     * @param scrapingTask l'entité à convertir
      * @return le DTO correspondant ou null si l'entité est null
      */
-    public DogDto toDto(Dog dog) {
-        if (dog == null) {
+    public MovieDto toDto(ScrapingTask scrapingTask) {
+        if (scrapingTask == null) {
             return null;
         }
         
-        DogDto dogDto = new DogDto();
-        dogDto.setId(dog.getId());
-        dogDto.setName(dog.getName());
-        dogDto.setRace(dog.getRace());
-        return dogDto;
+        MovieDto movieDto = new MovieDto();
+        movieDto.setId(scrapingTask.getId());
+        movieDto.setName(scrapingTask.getName());
+        movieDto.setRace(scrapingTask.getRace());
+        return movieDto;
     }
 
     /**
@@ -41,21 +40,21 @@ public class DogMapper {
      * Cette méthode est utilisée pour persister les données reçues des clients
      * Note: La date de naissance n'est pas dans le DTO mais est présente dans l'entité
      * 
-     * @param dogDto le DTO à convertir
+     * @param movieDto le DTO à convertir
      * @return l'entité correspondante ou null si le DTO est null
      */
-    public Dog toEntity(DogDto dogDto) {
-        if (dogDto == null) {
+    public ScrapingTask toEntity(MovieDto movieDto) {
+        if (movieDto == null) {
             return null;
         }
 
-        Dog dog = new Dog();
+        ScrapingTask scrapingTask = new ScrapingTask();
         // On ne set l'ID que s'il existe (cas d'une mise à jour)
-        if (dogDto.getId() != null) {
-            dog.setId(dogDto.getId());
+        if (movieDto.getId() != null) {
+            scrapingTask.setId(movieDto.getId());
         }
-        dog.setName(dogDto.getName());
-        dog.setRace(dogDto.getRace());
-        return dog;
+        scrapingTask.setName(movieDto.getName());
+        scrapingTask.setRace(movieDto.getRace());
+        return scrapingTask;
     }
 } 
