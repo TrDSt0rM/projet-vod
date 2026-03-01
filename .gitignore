@@ -1,0 +1,31 @@
+# =========================
+# Backend (Spring / Gradle)
+# =========================
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# =========================
+# Frontend (Vue.js / Node)
+# =========================
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# =========================
+# IDE (IntelliJ / VSCode)
+# =========================
+.idea/
+*.iml
+*.iws
+.vscode/
+
+# =========================
+# OS / Divers
+# =========================
+.DS_Store
+Thumbs.db
