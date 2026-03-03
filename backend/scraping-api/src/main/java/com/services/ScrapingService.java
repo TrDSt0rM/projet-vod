@@ -13,7 +13,7 @@ public interface ScrapingService {
     /**
      * Récupère un film de manière synchrone dans la base de scraping.
      * @param title le titre du film à récupérer
-     * @return le film récupérer
+     * @return le film récupéré
      */
     MovieDto scrapeMovieSync(String title);
 
@@ -27,7 +27,7 @@ public interface ScrapingService {
     ScrapingTaskDto startScrapingTask(String title);
 
     /**
-     * Récupère la tâche scrapée seulement si elle est finie.
+     * Récupère la tâche scrapé seulement si elle est finie.
      * @param id l'id de la tâche de scraping
      * @return renvoie la tâche de scraping au client
      */

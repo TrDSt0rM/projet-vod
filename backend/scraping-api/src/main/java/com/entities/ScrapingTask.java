@@ -4,6 +4,9 @@ import com.enums.ScrapingTaskStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
+/**
+ * Classe de l'objet stocké en base.
+ */
 @Entity
 @Data
 public class ScrapingTask {

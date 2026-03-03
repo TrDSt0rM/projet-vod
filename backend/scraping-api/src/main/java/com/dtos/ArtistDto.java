@@ -3,6 +3,9 @@ package com.dtos;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+/**
+ * Classe des artistes, utilisé par MovieDto, pour être envoyé au client.
+ */
 @Data
 public class ArtistDto {
 

@@ -5,6 +5,9 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+/**
+ * Class de l'objet renvoyé au client.
+ */
 @Data
 public class ScrapingTaskDto {
 

@@ -21,7 +21,7 @@ public class ScrapingMapper {
      * Convertit une entité ScrapingTask en DTO ScrapingTaskDto
      * Cette méthode est utilisée pour exposer les données aux clients de l'API
      * 
-     * @param scrapingTask l'entité à convertir
+     * @param entity l'entité à convertir
      * @return le DTO correspondant ou null si l'entité est null
      */
     public ScrapingTaskDto toDto(ScrapingTask entity) {

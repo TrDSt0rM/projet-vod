@@ -48,8 +48,6 @@ public class ScrapingController {
         return ResponseEntity.accepted().body(task); // Renvoie 202 (Accepted)
     }
 
-    // GET /api/scraping/tasks/{id}
-
     /**
      * GET /api/scraping/tasks/{id}
      * Méthode pour récupérer une tâche par son id.

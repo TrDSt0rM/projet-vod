@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.Data;
 
+/**
+ * Classe des films, utilisé par ScrapingTaskDto, pour être envoyé au client.
+ */
 @Data
 public class MovieDto {
 	
