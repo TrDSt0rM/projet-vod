@@ -186,6 +186,19 @@ public class ScrapingServiceImpl implements ScrapingService {
                             role = "realisateur";
                         } else if (header.contains("Acteurs principaux")) {
                             role = "acteur";
+                        } else if (header.contains("Genre")) { // <-- AJOUT ICI
+                            String genreText = td.text().replaceAll("\\[\\d+\\]", "").trim();
+                            String[] genreNames = genreText.split("[,]| et | & ");
+                            List<GenreDto> genres = new ArrayList<>();
+                            for (String gName : genreNames) {
+                                gName = gName.trim();
+                                if (!gName.isEmpty()) {
+                                    GenreDto gDto = new GenreDto();
+                                    gDto.setName(gName.substring(0, 1).toUpperCase() + gName.substring(1)); // Majuscule
+                                    genres.add(gDto);
+                                }
+                            }
+                            movie.setGenres(genres);
                         }
 
                         if (!role.isEmpty()) {
@@ -225,10 +238,6 @@ public class ScrapingServiceImpl implements ScrapingService {
             // Valeurs par défaut
             movie.setRentable(false);
             movie.setMinimalYear(10);
-
-            GenreDto genre = new GenreDto();
-            genre.setName("Cinema");
-            movie.setGenres(List.of(genre));
 
             System.out.println("Scraping terminé avec succès !");
             return movie;
