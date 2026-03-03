@@ -1,22 +1,22 @@
 package com.entities;
 
-import java.time.LocalDate;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import com.enums.ScrapingTaskStatus;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-public class Dog {
+public class ScrapingTask {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long Id;
-	private String name;
-	private String race;
-	private LocalDate birthDate;	
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    private String movieTitle;
+
+    @Enumerated(EnumType.STRING)
+    private ScrapingTaskStatus status;
+
+    @Column(columnDefinition = "TEXT")
+    private String result;
 }

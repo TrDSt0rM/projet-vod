@@ -1,9 +1,9 @@
 package com.repositories;
 
-import com.entities.Dog;
+import com.entities.ScrapingTask;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ScrapingRepository extends JpaRepository<Movie, Long> {
+public interface ScrapingTaskRepository extends JpaRepository<ScrapingTask, String> {
 }
