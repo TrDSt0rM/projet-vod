@@ -1,9 +1,13 @@
 package com.repositories;
 
-import com.entities.Dog;
+import com.entities.ScrapingTask;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Interface intéragissant avec la base de donnée.
+ * La classe est vide, car elle étend JpaRepository qui s'occupe de la gestion CRUD.
+ */
 @Repository
-public interface ScrapingRepository extends JpaRepository<Movie, Long> {
+public interface ScrapingTaskRepository extends JpaRepository<ScrapingTask, String> {
 }

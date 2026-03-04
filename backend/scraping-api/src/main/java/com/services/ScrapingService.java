@@ -1,39 +1,35 @@
 package com.services;
 
-import com.dtos.DogDto;
-
-import java.util.List;
+import com.dtos.MovieDto;
+import com.dtos.ScrapingTaskDto;
 
 /**
- * Interface définissant les opérations métier disponibles pour la gestion des chiens.
+ * Interface définissant les opérations métier disponibles pour la gestion des scraps.
  * Cette interface suit le principe d'Interface Segregation (SOLID).
  */
-public interface DogService {
-    /**
-     * Sauvegarde un chien dans le système
-     * @param dogDto les données du chien à sauvegarder
-     * @return le chien sauvegardé avec son ID généré
-     */
-    DogDto saveDog(DogDto dogDto);
+public interface ScrapingService {
+    // Méthode synchrone
 
     /**
-     * Récupère un chien par son identifiant
-     * @param dogId l'identifiant du chien recherché
-     * @return le chien trouvé
-     * @throws jakarta.persistence.EntityNotFoundException si le chien n'existe pas
+     * Récupère un film de manière synchrone dans la base de scraping.
+     * @param title le titre du film à récupérer
+     * @return le film récupéré
      */
-    DogDto getDogById(Long dogId);
+    MovieDto scrapeMovieSync(String title);
+
+    // Méthodes asynchrones
 
     /**
-     * Supprime un chien du système
-     * @param dogId l'identifiant du chien à supprimer
-     * @return true si la suppression a réussi
+     * Lancement de la tâche de scraping d'un film à partir de son titre.
+     * @param title le nom du film à scraper
+     * @return Renvoie un ticket de ScrapingTaskDto avec pour le moment aucun film scrapé
      */
-    boolean deleteDog(Long dogId);
+    ScrapingTaskDto startScrapingTask(String title);
 
     /**
-     * Récupère tous les chiens du système
-     * @return la liste des chiens
+     * Récupère la tâche scrapé seulement si elle est finie.
+     * @param id l'id de la tâche de scraping
+     * @return renvoie la tâche de scraping au client
      */
-    List<DogDto> getAllDogs();
+    ScrapingTaskDto getTaskById(String id);
 }

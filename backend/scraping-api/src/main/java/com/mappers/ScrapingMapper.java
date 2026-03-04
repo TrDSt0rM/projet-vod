@@ -1,6 +1,7 @@
 package com.mappers;
 
 import com.dtos.MovieDto;
+import com.dtos.ScrapingTaskDto;
 import com.entities.ScrapingTask;
 import org.springframework.stereotype.Component;
 
@@ -14,47 +15,42 @@ import org.springframework.stereotype.Component;
  * - Pas de logique métier, uniquement de la transformation
  */
 @Component
-public class DogMapper {
+public class ScrapingMapper {
 
     /**
-     * Convertit une entité Dog en DTO DogDto
+     * Convertit une entité ScrapingTask en DTO ScrapingTaskDto
      * Cette méthode est utilisée pour exposer les données aux clients de l'API
      * 
-     * @param scrapingTask l'entité à convertir
+     * @param entity l'entité à convertir
      * @return le DTO correspondant ou null si l'entité est null
      */
-    public MovieDto toDto(ScrapingTask scrapingTask) {
-        if (scrapingTask == null) {
+    public ScrapingTaskDto toDto(ScrapingTask entity) {
+        if (entity == null) {
             return null;
         }
-        
-        MovieDto movieDto = new MovieDto();
-        movieDto.setId(scrapingTask.getId());
-        movieDto.setName(scrapingTask.getName());
-        movieDto.setRace(scrapingTask.getRace());
-        return movieDto;
+
+        ScrapingTaskDto dto = new ScrapingTaskDto();
+        dto.setId(entity.getId());
+        dto.setStatus(entity.getStatus());
+        // Note : On gérera la transformation du 'result' (String) en MovieDto plus tard !
+        return dto;
     }
 
     /**
-     * Convertit un DTO DogDto en entité Dog
+     * Convertit un DTO ScrapingTaskDto en entité ScrapingTask
      * Cette méthode est utilisée pour persister les données reçues des clients
-     * Note: La date de naissance n'est pas dans le DTO mais est présente dans l'entité
      * 
-     * @param movieDto le DTO à convertir
+     * @param dto la ScrapingTaskDto à convertir
      * @return l'entité correspondante ou null si le DTO est null
      */
-    public ScrapingTask toEntity(MovieDto movieDto) {
-        if (movieDto == null) {
+    public ScrapingTask toEntity(ScrapingTaskDto dto) {
+        if (dto == null) {
             return null;
         }
 
-        ScrapingTask scrapingTask = new ScrapingTask();
-        // On ne set l'ID que s'il existe (cas d'une mise à jour)
-        if (movieDto.getId() != null) {
-            scrapingTask.setId(movieDto.getId());
-        }
-        scrapingTask.setName(movieDto.getName());
-        scrapingTask.setRace(movieDto.getRace());
-        return scrapingTask;
+        ScrapingTask entity = new ScrapingTask();
+        entity.setId(dto.getId());
+        entity.setStatus(dto.getStatus());
+        return entity;
     }
-} 
+}

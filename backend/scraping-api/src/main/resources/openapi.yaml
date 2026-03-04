@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Scraping API
-  description: API de scraping pour récupérer des infos de films (Allociné/IMDb).
+  description: API de scraping pour récupérer des infos de films (Wikipedia car Allociné/IMDb ne veut pas).
   version: 1.0.0
 
 servers:
@@ -30,7 +30,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MovieResult'
+                $ref: '#/components/schemas/MovieDto'
         '404':
           description: Film introuvable
         '500':
@@ -79,33 +79,33 @@ paths:
 components:
   schemas:
     # L'objet FILM (DTO de retour du scraping)
-    MovieResult:
+    MovieDto:
       type: object
       required:
         - titre
       properties:
-        titre:
+        title:
           type: string
           example: "Avatar : La Voie de l'eau"
-        anneeRealisation:
+        realisationYear:
           type: integer
           example: 2022
-        ageMinimum:
+        minimalYear:
           type: integer
           example: 12
-        louable:
+        isRentable:
           type: boolean
           example: true
         genres:
           type: array
           description: "Liste des genres associés au film"
           items:
-            $ref: '#/components/schemas/GenreResult'
-        artistes:
+            $ref: '#/components/schemas/GenreDto'
+        artists:
           type: array
           description: "Liste des acteurs et réalisateurs"
           items:
-            $ref: '#/components/schemas/ArtisteResult'
+            $ref: '#/components/schemas/ArtisteDto'
         posterUrl:
           type: string
           description: "URL de l'affiche récupérée"
@@ -115,21 +115,21 @@ components:
           example: "https://www.allocine.fr/film/..."
 
     # L'objet GENRE
-    GenreResult:
+    GenreDto:
       type: object
       properties:
-        nom:
+        name:
           type: string
           example: "Science-Fiction"
 
     # L'objet ARTISTE
-    ArtisteResult:
+    ArtisteDto:
       type: object
       properties:
-        nom:
+        lastName:
           type: string
           example: "Cameron"
-        prenom:
+        firstName:
           type: string
           example: "James"
         role:
@@ -152,4 +152,4 @@ components:
             - FAILED
           example: "COMPLETED"
         result:
-          $ref: '#/components/schemas/MovieResult'
+          $ref: '#/components/schemas/MovieDto'
