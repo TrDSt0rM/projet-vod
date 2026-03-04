@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Scraping API
-  description: API de scraping pour récupérer des infos de films (Allociné/IMDb).
+  description: API de scraping pour récupérer des infos de films (Wikipedia car Allociné/IMDb ne veut pas).
   version: 1.0.0
 
 servers:

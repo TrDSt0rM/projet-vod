@@ -1,0 +1,15 @@
+﻿name: payment-api
+
+services:
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pwd
+      MYSQL_DATABASE: vod_db
+      MYSQL_USER: vod_usr
+      MYSQL_PASSWORD: vod_pwd
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
