@@ -16,18 +16,29 @@ Controller → Service → Repository → Database
           
 Structure du projet :
 com/
+
 ├── entities/
+
 │   └── Artist.java
 ├── dtos/
+
 │   └── ArtistDto.java
 ├── mappers/
+
 │   └── ArtistMapper.java
+
 ├── repositories/
+
 │   └── ArtistRepository.java
+
 ├── services/
+
 │   └── ArtistService.java
+
 └── controllers/
+
     └── ArtistController.java
+
 
 Technologies :
 Java 17+ --- Langage principal
