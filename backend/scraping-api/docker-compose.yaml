@@ -1,4 +1,22 @@
 services:
+  # Ton application de scraping
+  scraping-api:
+    image: trdst0rm/scraping-api:latest
+    container_name: scraping-app
+    ports:
+      - "8081:8080" # On expose le port 8081 pour éviter les conflits
+    environment:
+      # TRÈS IMPORTANT : On remplace localhost par le nom du service "mariadb"
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://mariadb:3306/ma_base_scraping
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=scraping
+    depends_on:
+      mariadb:
+        condition: service_healthy # Attend que la DB soit prête avant de démarrer
+    networks:
+      - scraping-network
+
+  # Ta base de données (ton fichier actuel)
   mariadb:
     image: mariadb:latest
     container_name: mariadb-scraping
@@ -14,3 +32,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - scraping-network
+
+networks:
+  scraping-network:
+    driver: bridge
