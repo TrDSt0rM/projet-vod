@@ -14,15 +14,15 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentResponseDto processPayment(PaymentRequestDto request) {
         PaymentResponseDto response = new PaymentResponseDto();
 
-        if (request.getCardNumber() == null) {
+        if (request.getCardNumber() == null || request.getCardNumber().isEmpty()) {
             response.setSuccess(false);
             response.setMessage("Invalid card number");
             return response;
         }
 
-        if (request.getCvc() == null) {
+        if (request.getCvc() == null || request.getCvc().isEmpty()) {
             response.setSuccess(false);
-            response.setMessage("Invalid CVCV");
+            response.setMessage("Invalid CVC");
             return response;
         }
 
