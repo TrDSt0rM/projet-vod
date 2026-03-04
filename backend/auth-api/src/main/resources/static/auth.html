@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Test Auth API</title>
+</head>
+
+<body>
+<h2>Register</h2>
+
+<input id="rPseudo" placeholder="Pseudo"><br><br>
+<input id="rNom" placeholder="Nom"><br><br>
+<input id="rPrenom" placeholder="Prenom"><br><br>
+<input id="rAge" type="number" placeholder="Age"><br><br>
+<input id="rAdresse" placeholder="Adresse"><br><br>
+<input id="rPassword" type="password" placeholder="Password"><br><br>
+
+<button onclick="register()">Register</button>
+
+<hr>
+
+<h2>Login</h2>
+
+<input id="lPseudo" placeholder="Pseudo"><br><br>
+<input id="lPassword" type="password" placeholder="Password"><br><br>
+
+<button onclick="login()">Login</button>
+
+<hr>
+
+<h2>Me (profil connecté)</h2>
+<button onclick="me()">Get Me</button>
+
+<pre id="result"></pre>
+<button onclick="logout()">Logout</button>
+<script>
+    let token = null;
+
+    function show(status, data) {
+        document.getElementById("result").textContent =
+            "STATUS=" + status + "\n" + (typeof data === "string" ? data : JSON.stringify(data, null, 2));
+    }
+
+    async function register() {
+        try {
+            const data = {
+                pseudo: document.getElementById("rPseudo").value.trim(),
+                nom: document.getElementById("rNom").value.trim(),
+                prenom: document.getElementById("rPrenom").value.trim(),
+                age: Number(document.getElementById("rAge").value),
+                adresse: document.getElementById("rAdresse").value.trim(),
+                password: document.getElementById("rPassword").value
+            };
+
+            // mini vérifs (simple)
+            if (!data.pseudo || !data.password) {
+                show(0, "Pseudo et password obligatoires");
+                return;
+            }
+
+            const res = await fetch("http://localhost:8080/auth/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const text = await res.text();
+            show(res.status, text);
+        } catch (e) {
+            show(0, "ERREUR: " + e);
+        }
+    }
+
+    async function login() {
+        try {
+            const data = {
+                pseudo: document.getElementById("lPseudo").value.trim(),
+                password: document.getElementById("lPassword").value
+            };
+
+            const res = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const text = await res.text();
+
+            // si erreur (401 etc), on affiche directement
+            if (!res.ok) {
+                token = null;
+                show(res.status, text);
+                return;
+            }
+
+            const json = JSON.parse(text);
+            token = json.token; // on garde le token
+            show(res.status, json);
+        } catch (e) {
+            show(0, "ERREUR: " + e);
+        }
+    }
+
+    async function me() {
+        try {
+            if (!token) {
+                show(0, "Tu dois d'abord te login (token absent).");
+                return;
+            }
+
+            const res = await fetch("http://localhost:8080/auth/me", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            });
+
+            const text = await res.text();
+            show(res.status, text);
+        } catch (e) {
+            show(0, "ERREUR: " + e);
+        }
+    }
+    function logout() {
+        token = null;
+        document.getElementById("result").textContent = "Déconnecté";
+    }
+</script>
+</body>
+</html>
