@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/artistes")
+@RequestMapping("/api/artists")
 @CrossOrigin
 public class ArtistController {
 
-    private final ArtistService artisteService;
+    private final ArtistService artistService;
 
     public ArtistController(ArtistService artistService) {
         this.artistService = artistService;
@@ -19,8 +19,8 @@ public class ArtistController {
 
     // GET tous les artistes
     @GetMapping
-    public List<Artist> getAllArtistes() {
-        return artistService.getAllArtistes();
+    public List<Artist> getAllArtists() {
+        return artistService.getAllArtists();
     }
 
     @GetMapping("/acteurs")
@@ -36,7 +36,7 @@ public class ArtistController {
     // GET par id
     @GetMapping("/{id}")
     public Artist getArtistById(@PathVariable Long id) {
-        return artisteService.getArtistById(id)
+        return artistService.getArtistById(id)
                 .orElseThrow(() -> new RuntimeException("Artiste non trouvé"));
     }
 
@@ -49,6 +49,6 @@ public class ArtistController {
     // DELETE artiste (admin)
     @DeleteMapping("/{id}")
     public void deleteArtist(@PathVariable Long id) {
-        artisteService.deleteArtiste(id);
+        artistService.deleteArtist(id);
     }
 }
