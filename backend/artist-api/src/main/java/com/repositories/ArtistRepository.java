@@ -1,6 +1,6 @@
 package com.repositories;
 
-import com.entity.Artist;
+import com.entities.Artist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

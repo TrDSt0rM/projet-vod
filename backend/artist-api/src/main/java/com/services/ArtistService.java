@@ -1,7 +1,7 @@
 package com.services;
 
-import com.entity.Artist;
-import com.repositories.ArtisteRepository;
+import com.entities.Artist;
+import com.repositories.ArtistRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class ArtistService {
         this.artistRepository = artistRepository;
     }
 
-    public List<Artist> getAllArtistes() {
+    public List<Artist> getAllArtists() {
         return artistRepository.findAll();
     }
 

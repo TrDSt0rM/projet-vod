@@ -1,7 +1,7 @@
 package com.controllers;
 
-import com.entity.Artist;
-import com.service.ArtistService;
+import com.entities.Artist;
+import com.services.ArtistService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

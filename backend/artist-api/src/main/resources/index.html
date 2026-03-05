@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test API Artist</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+
+<body>
+
+<div id="app">
+
+    <h1>API Artists</h1>
+
+    <button @click="loadArtists">Charger les artistes</button>
+
+    <ul>
+        <li v-for="artist in artists" :key="artist.id">
+            {{ artist.nom }} {{ artist.prenom }} - {{ artist.type }}
+            <button @click="deleteArtist(artist.id)">Supprimer</button>
+        </li>
+    </ul>
+
+    <h2>Créer un artiste</h2>
+
+    <input v-model="newArtist.nom" placeholder="Nom">
+    <input v-model="newArtist.prenom" placeholder="Prénom">
+    <input v-model="newArtist.age" placeholder="Age">
+    <input v-model="newArtist.type" placeholder="Type">
+
+    <button @click="createArtist">Créer</button>
+
+</div>
+
+<script>
+
+const app = Vue.createApp({
+
+    data() {
+        return {
+            artists: [],
+            newArtist: {
+                nom: "",
+                prenom: "",
+                age: "",
+                type: ""
+            }
+        }
+    },
+
+    methods: {
+
+        loadArtists() {
+            fetch("http://localhost:8080/api/artists")
+            .then(res => res.json())
+            .then(data => this.artists = data)
+        },
+
+        createArtist() {
+
+            fetch("http://localhost:8080/api/artists", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(this.newArtist)
+            })
+            .then(() => {
+                this.loadArtists()
+            })
+        },
+
+        deleteArtist(id) {
+
+            fetch("http://localhost:8080/api/artists/" + id, {
+                method: "DELETE"
+            })
+            .then(() => {
+                this.loadArtists()
+            })
+        }
+
+    }
+
+})
+
+app.mount("#app")
+
+</script>
+
+</body>
+</html>

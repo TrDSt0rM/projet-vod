@@ -24,12 +24,12 @@ public class Artist {
 	// "ACTEUR" ou "REALISATEUR"
 
 	// Films où l'artiste est acteur
-	@ManyToMany(mappedBy = "acteurs")
-	private Set<Film> filmsActeur = new HashSet<>();
+	//@ManyToMany(mappedBy = "acteurs")
+	//private Set<Film> filmsActeur = new HashSet<>();
 
 	// Films où l'artiste est réalisateur
-	@OneToMany(mappedBy = "realisateur")
-	private Set<Film> filmsRealises = new HashSet<>();
+	//@OneToMany(mappedBy = "realisateur")
+	//private Set<Film> filmsRealises = new HashSet<>();
 
 	public Artist() {}
 
