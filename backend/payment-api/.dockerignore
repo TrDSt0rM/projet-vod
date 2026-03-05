@@ -1,0 +1,6 @@
+data/
+.gradle/
+build/
+bin/
+.git/
+*.tar.gz
