@@ -59,10 +59,10 @@
 
       <ul v-else class="artist-list">
         <li
-          v-for="artist in artists"
-          :key="artist.id"
-          class="artist-card"
-          :class="{ 'deleting': deletingId === artist.id }"
+            v-for="artist in artists"
+            :key="artist.id"
+            class="artist-card"
+            :class="{ 'deleting': deletingId === artist.id }"
         >
           <div class="artist-avatar">
             {{ initials(artist) }}
@@ -169,20 +169,22 @@ export default {
   max-width: 680px;
   margin: 0 auto;
   padding: 2rem;
-  color: #e8e0d0;
+  color: #1a1a1a;
   font-family: 'DM Sans', sans-serif;
+  background-color: #ffffff;
+  min-height: 100vh;
 }
 
 /* ── Header ── */
 .back-link {
   display: inline-block;
-  color: rgba(232,224,208,0.35);
+  color: #6b7280;
   text-decoration: none;
   font-size: 0.8rem;
   margin-bottom: 1.5rem;
   transition: color 0.2s;
 }
-.back-link:hover { color: #e8e0d0; }
+.back-link:hover { color: #1a1a1a; }
 
 .header-top {
   display: flex;
@@ -194,21 +196,21 @@ export default {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1rem;
   letter-spacing: 0.15em;
-  color: #ffb432;
-  opacity: 0.6;
+  color: #f59e0b;
+  opacity: 0.8;
 }
 
 h1 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 3.5rem;
   letter-spacing: 0.04em;
-  color: #ffb432;
+  color: #f59e0b;
   margin: 0;
   line-height: 1;
 }
 
 .page-desc {
-  color: rgba(232,224,208,0.4);
+  color: #6b7280;
   font-size: 0.875rem;
   margin: 0.5rem 0 2.5rem;
   font-weight: 300;
@@ -223,7 +225,7 @@ h1 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.1rem;
   letter-spacing: 0.12em;
-  color: rgba(232,224,208,0.5);
+  color: #4b5563;
   margin: 0 0 1rem;
   text-transform: uppercase;
 }
@@ -238,8 +240,8 @@ h1 {
 
 /* ── Form ── */
 .create-form {
-  background: rgba(232,224,208,0.03);
-  border: 1px solid rgba(232,224,208,0.08);
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
   border-radius: 6px;
   padding: 1.5rem;
   display: flex;
@@ -265,38 +267,38 @@ h1 {
 
 label {
   font-size: 0.75rem;
-  color: rgba(232,224,208,0.5);
+  color: #4b5563;
   font-weight: 500;
   letter-spacing: 0.05em;
 }
 
 input {
-  background: rgba(232,224,208,0.06);
-  border: 1px solid rgba(232,224,208,0.1);
+  background: #ffffff;
+  border: 1px solid #d1d5db;
   border-radius: 4px;
   padding: 0.65rem 0.85rem;
-  color: #e8e0d0;
+  color: #1a1a1a;
   font-size: 0.9rem;
   font-family: inherit;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
   width: 100%;
 }
 
-input::placeholder { color: rgba(232,224,208,0.2); }
+input::placeholder { color: #9ca3af; }
 
 input:focus {
   outline: none;
-  border-color: rgba(255,180,50,0.4);
-  background: rgba(232,224,208,0.08);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
 }
 
 /* ── Buttons ── */
 .btn-primary {
   align-self: flex-start;
   padding: 0.65rem 1.5rem;
-  background: #ffb432;
-  color: #080a0f;
+  background: #f59e0b;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   font-size: 0.875rem;
@@ -305,23 +307,24 @@ input:focus {
   cursor: pointer;
   transition: background 0.2s, opacity 0.2s;
 }
-.btn-primary:hover:not(:disabled) { background: #ffa010; }
+.btn-primary:hover:not(:disabled) { background: #d97706; }
 .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .btn-secondary {
   padding: 0.5rem 1rem;
   background: transparent;
-  color: rgba(232,224,208,0.5);
-  border: 1px solid rgba(232,224,208,0.15);
+  color: #6b7280;
+  border: 1px solid #d1d5db;
   border-radius: 4px;
   font-size: 0.8rem;
   font-family: inherit;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
 .btn-secondary:hover:not(:disabled) {
-  color: #e8e0d0;
-  border-color: rgba(232,224,208,0.35);
+  color: #1a1a1a;
+  border-color: #9ca3af;
+  background: #f9fafb;
 }
 .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
 
@@ -340,15 +343,16 @@ input:focus {
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 1.1rem;
-  background: rgba(232,224,208,0.03);
-  border: 1px solid rgba(232,224,208,0.08);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 6px;
-  transition: background 0.2s, border-color 0.2s, opacity 0.3s;
+  transition: background 0.2s, border-color 0.2s, opacity 0.3s, box-shadow 0.2s;
 }
 
 .artist-card:hover {
-  background: rgba(232,224,208,0.06);
-  border-color: rgba(255,180,50,0.2);
+  background: #f9fafb;
+  border-color: #f59e0b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .artist-card.deleting { opacity: 0.4; }
@@ -357,9 +361,9 @@ input:focus {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255,180,50,0.12);
-  border: 1px solid rgba(255,180,50,0.25);
-  color: #ffb432;
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  color: #d97706;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1rem;
   letter-spacing: 0.05em;
@@ -379,7 +383,7 @@ input:focus {
 .artist-name {
   font-size: 0.95rem;
   font-weight: 500;
-  color: #e8e0d0;
+  color: #1a1a1a;
 }
 
 .artist-meta {
@@ -392,22 +396,22 @@ input:focus {
   font-size: 0.7rem;
   padding: 0.15rem 0.55rem;
   border-radius: 2px;
-  background: rgba(255,180,50,0.1);
-  border: 1px solid rgba(255,180,50,0.2);
-  color: #ffb432;
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  color: #d97706;
   font-family: 'JetBrains Mono', monospace;
   letter-spacing: 0.05em;
 }
 
 .age {
   font-size: 0.75rem;
-  color: rgba(232,224,208,0.35);
+  color: #9ca3af;
 }
 
 .btn-delete {
   background: transparent;
   border: 1px solid transparent;
-  color: rgba(232,224,208,0.2);
+  color: #d1d5db;
   font-size: 0.75rem;
   width: 30px;
   height: 30px;
@@ -421,19 +425,20 @@ input:focus {
 }
 
 .btn-delete:hover {
-  color: #f87171;
-  border-color: rgba(248,113,113,0.3);
-  background: rgba(248,113,113,0.08);
+  color: #dc2626;
+  border-color: #fecaca;
+  background: #fef2f2;
 }
 
 /* ── States ── */
 .state-msg {
   text-align: center;
   padding: 2.5rem;
-  color: rgba(232,224,208,0.25);
+  color: #9ca3af;
   font-size: 0.875rem;
-  border: 1px dashed rgba(232,224,208,0.08);
+  border: 1px dashed #e5e7eb;
   border-radius: 6px;
+  background: #f9fafb;
 }
 
 /* ── Toast ── */
@@ -446,18 +451,19 @@ input:focus {
   font-size: 0.85rem;
   font-family: 'JetBrains Mono', monospace;
   z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .toast.success {
-  background: rgba(74,222,128,0.1);
-  border: 1px solid rgba(74,222,128,0.3);
-  color: #4ade80;
+  background: #d1fae5;
+  border: 1px solid #6ee7b7;
+  color: #047857;
 }
 
 .toast.error {
-  background: rgba(248,113,113,0.1);
-  border: 1px solid rgba(248,113,113,0.3);
-  color: #f87171;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
 }
 
 .toast-enter-active, .toast-leave-active { transition: all 0.3s ease; }

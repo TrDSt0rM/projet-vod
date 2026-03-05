@@ -95,7 +95,7 @@ export default {
       this.result = null
 
       try {
-        const response = await fetch('http://localhost:8080/payment', {
+        const response = await fetch('/api/payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -103,7 +103,9 @@ export default {
           body: JSON.stringify(this.paymentData)
         })
 
-        this.result = await response.json()
+        const text = await response.text()
+        if (!text) throw new Error('Réponse vide du serveur')
+        this.result = JSON.parse(text)
       } catch (error) {
         this.result = {
           success: false,
