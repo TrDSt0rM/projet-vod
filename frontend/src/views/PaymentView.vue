@@ -122,17 +122,10 @@ export default {
   max-width: 500px;
   margin: 0 auto;
   padding: 2rem;
-  color: #e8e0d0;
-}
-
-h1 {
-  color: #4ade80;
-  margin-bottom: 0;
 }
 
 .payment-form {
-  background: rgba(232, 224, 208, 0.04);
-  border: 1px solid rgba(232, 224, 208, 0.1);
+  background: #f9f9f9;
   padding: 2rem;
   border-radius: 8px;
   margin: 2rem 0;
@@ -152,52 +145,35 @@ label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: rgba(232, 224, 208, 0.6);
-  font-size: 0.875rem;
 }
 
 input {
   width: 100%;
   padding: 0.75rem;
-  background: rgba(232, 224, 208, 0.06);
-  border: 1px solid rgba(232, 224, 208, 0.12);
+  border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
   box-sizing: border-box;
-  color: #e8e0d0;
-  transition: border-color 0.2s;
-}
-
-input::placeholder {
-  color: rgba(232, 224, 208, 0.25);
-}
-
-input:focus {
-  outline: none;
-  border-color: rgba(74, 222, 128, 0.45);
-  background: rgba(232, 224, 208, 0.08);
 }
 
 .btn-submit {
   width: 100%;
   padding: 1rem;
-  background: #4ade80;
-  color: #080a0f;
+  background: #42b983;
+  color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.2s, opacity 0.2s;
-  margin-top: 0.5rem;
+  transition: background 0.3s;
 }
 
 .btn-submit:hover:not(:disabled) {
-  background: #22c55e;
+  background: #35a372;
 }
 
 .btn-submit:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
@@ -208,37 +184,25 @@ input:focus {
 }
 
 .result.success {
-  background: rgba(74, 222, 128, 0.08);
-  border: 1px solid rgba(74, 222, 128, 0.3);
-  color: #4ade80;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
 }
 
 .result.error {
-  background: rgba(248, 113, 113, 0.08);
-  border: 1px solid rgba(248, 113, 113, 0.3);
-  color: #f87171;
-}
-
-.result h3 {
-  margin: 0 0 0.5rem;
-}
-
-.result p {
-  margin: 0.25rem 0;
-  font-size: 0.9rem;
-  opacity: 0.85;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
 }
 
 .back-link {
   display: inline-block;
-  margin-top: 1rem;
-  color: rgba(232, 224, 208, 0.4);
+  margin-top: 2rem;
+  color: #42b983;
   text-decoration: none;
-  font-size: 0.875rem;
-  transition: color 0.2s;
 }
 
 .back-link:hover {
-  color: #e8e0d0;
+  text-decoration: underline;
 }
 </style>
