@@ -1,10 +1,28 @@
 services:
+  # Ton application de scraping
+  scraping-api:
+    image: artist-api:latest
+    container_name: artist-app
+    ports:
+      - "8081:8080" # On expose le port 8081 pour éviter les conflits
+    environment:
+      # TRÈS IMPORTANT : On remplace localhost par le nom du service "mariadb"
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://mariadb:3306/ma_base_artist
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=artist
+    depends_on:
+      mariadb:
+        condition: service_healthy # Attend que la DB soit prête avant de démarrer
+    networks:
+      - artist-network
+
+  # Ta base de données (ton fichier actuel)
   mariadb:
     image: mariadb:latest
-    container_name: mariadb
+    container_name: mariadb-artist
     environment:
-      MARIADB_ROOT_PASSWORD: monMotDePasseSuperSecret
-      MARIADB_DATABASE: test
+      MARIADB_ROOT_PASSWORD: artist
+      MARIADB_DATABASE: ma_base_artist
     volumes:
       - ./data:/var/lib/mysql
     ports:
@@ -14,3 +32,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - artist-network
+
+networks:
+  scraping-network:
+    driver: bridge
