@@ -1,0 +1,24 @@
+<template>
+  <div id="app">
+    <router-view />
+  </div>
+</template>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #2c3e50;
+}
+
+#app {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+</style>
