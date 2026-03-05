@@ -1,9 +1,10 @@
-package com.entity;
+package com.entities;
 
+import lombok.Data;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+@Data
 @Entity
 public class Artist {
 
