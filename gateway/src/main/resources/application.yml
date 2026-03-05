@@ -9,8 +9,8 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins:
-              - "http://localhost:5173"
+            # On utilise une variable pour l'URL du front, avec localhost:5173 par défaut pour tes tests
+            allowedOrigins: "${FRONTEND_URL:http://localhost:5173}"
             allowedMethods:
               - GET
               - POST
@@ -18,8 +18,29 @@ spring:
               - DELETE
               - OPTIONS
             allowedHeaders: "*"
+
       routes:
+        # 1. Route Scraping
         - id: scraping-api
-          uri: http://localhost:8080
+          # On utilise le nom du conteneur Docker "scraping-api" par défaut
+          uri: "${SCRAPING_API_URL:http://api/scraping-api:8080}"
           predicates:
             - Path=/api/scraping/**
+
+        # 2. Route Authentication
+        - id: auth-api
+          uri: "${AUTH_API_URL:http://api/auth-api:8080}"
+          predicates:
+            - Path=/auth/**
+
+        # 3. Route Payment
+        - id: payment-api
+          uri: "${PAYMENT_API_URL:http://api/payment-api:8080}"
+          predicates:
+            - Path=/payment/**
+
+        # 4. Route Artist
+        - id: artist-api
+          uri: "${ARTIST_API_URL:http://api/artist-api:8080}"
+          predicates:
+            - Path=/api/artistes/**
